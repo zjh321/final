@@ -1,0 +1,108 @@
+im1=imread('test1.tif');
+im2=imread('test2.png');
+im3=imread('test3.jpg');
+im4=imread('test4.bmp');
+im5=imread('test5.png');
+im6=imread('test6.jpg');
+im1=im1(:,:,1);
+a=edge(im1,'canny');
+b=edge(im2,'canny');
+c=edge(im3,'canny');
+d=edge(im4,'canny');
+e=edge(im5,'canny');
+f=edge(im6,'canny');
+
+figure;
+subplot(2,3,1),
+imshow(a),axis on;
+title('test1');
+subplot(2,3,2),
+imshow(b),axis on;
+title('test2');
+subplot(2,3,3),
+imshow(c),axis on;
+title('test3');
+subplot(2,3,4),
+imshow(d),axis on;
+title('test4');
+subplot(2,3,5),
+imshow(e),axis on;
+title('test5');
+subplot(2,3,6),
+imshow(f),axis on;
+title('test6');
+
+im=imread('test2.png');
+
+a=edge(im,'sobel',0.02);
+b=edge(im,'sobel',0.07);
+c=edge(im,'sobel');
+
+figure;
+subplot(1,3,1),
+imshow(a),axis on;
+title(' 阈值=0.02');
+subplot(1,3,2),
+imshow(b),axis on;
+title(' 阈值=0.07');
+subplot(1,3,3),
+imshow(c),axis on;
+title('默认');
+
+
+BW=imread('test2.png');
+  
+%BW=rgb2gray(BW);  
+thresh=[0.01,0.17];  
+sigma=2;%定义高斯参数  
+%f = edge(double(BW),'canny',thresh,sigma);  
+f = edge(double(BW),'canny');
+figure(1),imshow(f,[]);  
+title('canny 边缘检测');  
+
+[H, theta, rho]= hough(f,'RhoResolution',0.5);  
+%imshow(theta,rho,H,[],'notruesize'),axis on,axis normal  
+%xlabel('\theta'),ylabel('rho');  
+  
+peak=houghpeaks(H,5);  
+hold on  
+  
+lines=houghlines(f,theta,rho,peak);  
+figure,imshow(f,[]),title('Hough Transform Detect Result'),hold on  
+for k=1:length(lines)  
+    xy=[lines(k).point1;lines(k).point2];  
+    plot(xy(:,1),xy(:,2),'LineWidth',4,'Color',[.6 .6 .6]);  
+end 
+im1=imread('test1.tif');
+im2=imread('test2.png');
+im3=imread('test3.jpg');
+im4=imread('test4.bmp');
+im5=imread('test5.png');
+im6=imread('test6.jpg');
+im1=im1(:,:,1);
+a=edge(im1,'sobel');
+b=edge(im2,'sobel');
+c=edge(im3,'sobel');
+d=edge(im4,'sobel');
+e=edge(im5,'sobel');
+f=edge(im6,'sobel');
+
+figure;
+subplot(2,3,1),
+imshow(a),axis on;
+title('test1');
+subplot(2,3,2),
+imshow(b),axis on;
+title('test2');
+subplot(2,3,3),
+imshow(c),axis on;
+title('test3');
+subplot(2,3,4),
+imshow(d),axis on;
+title('test4');
+subplot(2,3,5),
+imshow(e),axis on;
+title('test5');
+subplot(2,3,6),
+imshow(f),axis on;
+title('test6');
